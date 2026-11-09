@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>slonik97 — уютная кофейня-кондитерская</title>
+<meta name="description" content="slonik97 — кофейня-кондитерская, где десерты пекут с утра, а кофе варят с улыбкой. Демо-сайт.">
+<meta name="theme-color" content="#FFF4EC">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='12' cy='26' r='12' fill='%239C7FE8'/%3E%3Ccircle cx='52' cy='26' r='12' fill='%239C7FE8'/%3E%3Ccircle cx='32' cy='30' r='19' fill='%23B9A2F5'/%3E%3Cpath d='M32 36V50Q32 58 41 57' fill='none' stroke='%239C7FE8' stroke-width='9' stroke-linecap='round'/%3E%3Ccircle cx='24' cy='28' r='2.4' fill='%233B2540'/%3E%3Ccircle cx='40' cy='28' r='2.4' fill='%233B2540'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FFF4EC; --paper:#FFFFFF; --ink:#3B2540; --ink-soft:#7A6480;
+  --pink:#FF9EC0; --pink-soft:#FFE0EC; --mint:#B8EBD6; --mint-soft:#E2F8EF;
+  --lav:#B9A2F5; --lav-deep:#9C7FE8; --lav-soft:#EEE7FF; --sun:#FFD98A; --sun-soft:#FFF1CF;
+  --r-lg:36px; --r-md:24px; --r-sm:16px;
+  --shadow:0 18px 40px -18px rgba(120,80,160,.35);
+  --pad:clamp(20px,5vw,72px);
+  --section:clamp(72px,11vw,140px);
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --bounce:cubic-bezier(.34,1.56,.64,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Nunito',system-ui,sans-serif;background:var(--cream);color:var(--ink);font-size:clamp(16px,1.1vw,18px);line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+h1,h2,h3{font-family:'Comfortaa',sans-serif;font-weight:700;line-height:1.12;letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:clamp(30px,4.6vw,58px)}
+.wrap{width:min(1240px,100%);margin-inline:auto;padding-inline:var(--pad)}
+section{padding-block:var(--section);position:relative}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:99px;background:var(--paper);font-weight:800;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--lav-deep);box-shadow:0 6px 16px -8px rgba(120,80,160,.35);margin-bottom:20px}
+.tag i{width:8px;height:8px;border-radius:50%;background:var(--pink)}
+.lead{color:var(--ink-soft);font-size:clamp(17px,1.4vw,20px);max-width:54ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 30px;border-radius:99px;font-weight:800;font-size:16px;transition:transform .35s var(--bounce),box-shadow .3s var(--ease);min-height:54px}
+.btn-main{background:var(--ink);color:#fff;box-shadow:0 8px 0 -2px var(--lav-deep)}
+.btn-main:hover{transform:translateY(-4px) rotate(-1.5deg);box-shadow:0 13px 0 -2px var(--lav-deep)}
+.btn-main:active{transform:translateY(3px);box-shadow:0 4px 0 -2px var(--lav-deep)}
+.btn-soft{background:var(--paper);box-shadow:var(--shadow)}
+.btn-soft:hover{transform:translateY(-4px) rotate(1.5deg)}
+:focus-visible{outline:3px solid var(--lav-deep);outline-offset:3px;border-radius:12px}
+
+/* nav */
+.nav{position:fixed;top:14px;left:0;right:0;z-index:50;padding-inline:var(--pad);pointer-events:none}
+.nav-in{pointer-events:auto;width:min(1240px,100%);margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 12px 10px 18px;border-radius:99px;background:rgba(255,255,255,.78);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);box-shadow:0 10px 30px -14px rgba(120,80,160,.4);transition:transform .5s var(--ease)}
+.nav.hide .nav-in{transform:translateY(-140%)}
+.logo{display:flex;align-items:center;gap:10px;font-family:'Comfortaa',sans-serif;font-weight:700;font-size:21px;letter-spacing:-.03em}
+.logo svg{width:42px;height:42px;transition:transform .5s var(--bounce)}
+.logo:hover svg{transform:rotate(-12deg) scale(1.1)}
+.logo b{display:inline-block;background:var(--pink);color:#fff;border-radius:10px;padding:1px 7px;font-size:15px;transform:rotate(-6deg);margin-left:2px}
+.links{display:flex;gap:4px;list-style:none}
+.links a{padding:10px 16px;border-radius:99px;font-weight:700;font-size:15px;transition:background .25s,color .25s}
+.links a:hover{background:var(--lav-soft);color:var(--lav-deep)}
+.nav .btn{padding:11px 22px;min-height:44px;font-size:15px}
+.burger{display:none;width:46px;height:46px;border-radius:50%;background:var(--lav-soft);position:relative}
+.burger span{position:absolute;left:14px;right:14px;height:2.5px;border-radius:2px;background:var(--ink);transition:transform .35s var(--ease),top .35s var(--ease)}
+.burger span:first-child{top:18px}.burger span:last-child{top:26px}
+.open .burger span:first-child{top:22px;transform:rotate(45deg)}
+.open .burger span:last-child{top:22px;transform:rotate(-45deg)}
+
+/* hero */
+.hero{padding-top:clamp(120px,14vw,170px);padding-bottom:clamp(40px,6vw,80px);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:clamp(16px,3vw,48px)}
+.hero h1{font-size:clamp(40px,6.6vw,92px)}
+.hero h1 em{font-style:normal;color:var(--lav-deep);position:relative;white-space:nowrap}
+.hero h1 em svg{position:absolute;left:0;right:0;bottom:-.16em;width:100%;height:.28em;overflow:visible}
+.hero h1 em path{fill:none;stroke:var(--pink);stroke-width:6;stroke-linecap:round;stroke-dasharray:320;stroke-dashoffset:320;animation:draw 1s .9s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero .lead{margin:26px 0 34px}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.perks{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:38px;font-weight:700;font-size:15px;color:var(--ink-soft)}
+.perks span{display:flex;align-items:center;gap:8px}
+.perks span::before{content:"";width:22px;height:22px;border-radius:50%;background:var(--mint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 22'%3E%3Cpath d='M6.5 11.5l3 3 6-6.5' fill='none' stroke='%233B2540' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain}
+.stage{position:relative;aspect-ratio:1/1;width:100%;max-width:620px;margin-inline:auto}
+.stage::before{content:"";position:absolute;inset:9%;border-radius:46% 54% 52% 48%/50% 46% 54% 50%;background:linear-gradient(140deg,var(--pink-soft),var(--lav-soft) 55%,var(--mint-soft));animation:blob 14s ease-in-out infinite alternate}
+@keyframes blob{to{border-radius:56% 44% 42% 58%/44% 58% 42% 56%;transform:rotate(14deg) scale(1.04)}}
+.stage canvas{position:absolute;inset:0;width:100%!important;height:100%!important;cursor:grab;touch-action:pan-y}
+.stage .fallback{position:absolute;inset:22%;width:56%;height:56%;display:none;animation:bob 4s ease-in-out infinite}
+.no3d .fallback{display:block}
+@keyframes bob{50%{transform:translateY(-14px) rotate(3deg)}}
+.bubble{position:absolute;z-index:2;background:var(--paper);border-radius:22px;padding:12px 18px;font-weight:800;font-size:14px;box-shadow:var(--shadow);animation:bob 5s ease-in-out infinite}
+.bubble small{display:block;font-weight:600;color:var(--ink-soft);font-size:12px}
+.b1{top:9%;left:0}.b2{bottom:12%;right:0;animation-delay:-2.2s}
+.hint{position:absolute;left:50%;bottom:0;transform:translateX(-50%);font-size:13px;font-weight:700;color:var(--ink-soft);white-space:nowrap}
+
+/* marquee */
+.marq{background:var(--ink);color:#fff;padding:18px 0;overflow:hidden;transform:rotate(-1.4deg) scale(1.03);margin-block:clamp(10px,3vw,40px)}
+.marq div{display:flex;gap:44px;width:max-content;animation:marq 30s linear infinite;font-family:'Comfortaa',sans-serif;font-weight:700;font-size:clamp(18px,2.2vw,26px);white-space:nowrap}
+.marq span{display:flex;align-items:center;gap:44px}
+.marq span::after{content:"";width:14px;height:14px;border-radius:50%;background:var(--pink)}
+.marq span:nth-child(3n)::after{background:var(--mint)}.marq span:nth-child(3n+1)::after{background:var(--sun)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* hits */
+.head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px;margin-bottom:clamp(32px,5vw,60px)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(18px,2.4vw,30px);perspective:1400px}
+.card{--rx:0deg;--ry:0deg;background:var(--paper);border-radius:var(--r-lg);padding:14px 14px 24px;box-shadow:var(--shadow);transform:rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .5s var(--ease),box-shadow .4s;will-change:transform}
+.card.live{transition:transform .08s linear,box-shadow .4s}
+.card:hover{box-shadow:0 34px 60px -24px rgba(120,80,160,.5)}
+.card figure{border-radius:26px;overflow:hidden;aspect-ratio:4/3.4;transform:translateZ(24px);background:var(--lav-soft)}
+.card img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.card:hover img{transform:scale(1.08)}
+.card .sticker{position:absolute;top:0;right:8px;transform:translateZ(60px) rotate(8deg);background:var(--sun);border-radius:99px;padding:6px 14px;font-weight:800;font-size:13px;box-shadow:0 8px 14px -8px rgba(0,0,0,.3)}
+.card:nth-child(2) .sticker{background:var(--mint)}.card:nth-child(3) .sticker{background:var(--pink);color:#fff}.card:nth-child(4) .sticker{background:var(--lav);color:#fff}
+.card .body{padding:20px 10px 0;transform:translateZ(36px)}
+.card h3{font-size:21px;margin-bottom:6px}
+.card p{color:var(--ink-soft);font-size:15px;line-height:1.5}
+.card .row{display:flex;align-items:center;justify-content:space-between;margin-top:18px}
+.price{font-family:'Comfortaa',sans-serif;font-weight:700;font-size:22px}
+.plus{width:46px;height:46px;border-radius:50%;background:var(--lav-soft);color:var(--lav-deep);font-size:26px;font-weight:700;line-height:1;display:grid;place-items:center;transition:transform .4s var(--bounce),background .25s,color .25s}
+.plus:hover{transform:rotate(90deg) scale(1.12);background:var(--lav-deep);color:#fff}
+.plus.ok{background:var(--mint);color:var(--ink);transform:scale(1.15)}
+
+/* menu */
+.menu{background:var(--paper);border-radius:clamp(32px,6vw,72px);margin-inline:clamp(0px,2vw,24px)}
+.tabs{display:inline-flex;flex-wrap:wrap;gap:6px;padding:6px;border-radius:99px;background:var(--cream)}
+.tabs button{padding:12px 24px;border-radius:99px;font-weight:800;font-size:15px;color:var(--ink-soft);transition:background .3s,color .3s,transform .3s var(--bounce);min-height:46px}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:#fff;transform:scale(1.04)}
+.panel{display:none;grid-template-columns:1fr 1fr;gap:6px clamp(30px,5vw,80px)}
+.panel.on{display:grid}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 18px;padding:20px 0;border-bottom:2px dashed #EADFF0;animation:pop .6s var(--ease) both;animation-delay:calc(var(--i)*55ms)}
+@keyframes pop{from{opacity:0;transform:translateY(18px) scale(.98)}}
+.item h3{font-size:18px;font-family:'Nunito',sans-serif;font-weight:800;letter-spacing:0}
+.item h3 mark{background:var(--sun-soft);color:#A8730C;font-size:11px;padding:3px 9px;border-radius:99px;margin-left:8px;vertical-align:middle;text-transform:uppercase;letter-spacing:.05em}
+.item p{grid-column:1;color:var(--ink-soft);font-size:15px}
+.item .price{font-size:19px;grid-row:1/3;grid-column:2;align-self:center;background:var(--lav-soft);padding:7px 15px;border-radius:99px;white-space:nowrap}
+.item.yours h3,.item.yours p{color:var(--lav-deep)}
+.item.yours .price{background:var(--pink-soft);color:#D6477F;font-size:15px}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,90px);align-items:center}
+.collage{position:relative;aspect-ratio:1/1.05}
+.collage img{position:absolute;object-fit:cover;border-radius:var(--r-lg);box-shadow:var(--shadow);border:8px solid #fff}
+.collage img:nth-child(1){width:66%;height:72%;left:0;top:0;transform:rotate(-4deg)}
+.collage img:nth-child(2){width:52%;height:54%;right:0;bottom:0;transform:rotate(5deg)}
+.collage .round{position:absolute;left:8%;bottom:4%;width:132px;height:132px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;text-align:center;font-family:'Comfortaa',sans-serif;font-weight:700;font-size:13px;line-height:1.2;animation:spin 18s linear infinite;box-shadow:var(--shadow)}
+.collage .round b{font-size:38px;display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px}
+.stat{background:var(--paper);border-radius:var(--r-md);padding:22px 18px;box-shadow:var(--shadow)}
+.stat:nth-child(1){background:var(--mint-soft)}.stat:nth-child(2){background:var(--sun-soft)}.stat:nth-child(3){background:var(--pink-soft)}
+.stat b{font-family:'Comfortaa',sans-serif;font-size:clamp(28px,3.4vw,44px);display:block;line-height:1.1}
+.stat span{font-size:14px;color:var(--ink-soft);font-weight:700}
+
+/* gallery */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(130px,17vw,230px);gap:clamp(10px,1.4vw,18px)}
+.gal a{border-radius:var(--r-md);overflow:hidden;position:relative;display:block}
+.gal a:nth-child(1),.gal a:nth-child(4){grid-row:span 2}.gal a:nth-child(n+5){grid-column:span 2}
+.gal img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease)}
+.gal a:hover img{transform:scale(1.1) rotate(1.5deg)}
+
+/* reviews */
+.revs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:clamp(18px,2.4vw,28px)}
+.rev{background:var(--paper);border-radius:var(--r-lg);padding:30px;box-shadow:var(--shadow);transition:transform .5s var(--bounce)}
+.rev:nth-child(odd){transform:rotate(-1.2deg)}.rev:nth-child(even){transform:rotate(1.2deg)}
+.rev:hover{transform:rotate(0) translateY(-8px)}
+.stars{color:#FFB93B;letter-spacing:3px;font-size:18px;margin-bottom:12px}
+.who{display:flex;align-items:center;gap:12px;margin-top:20px;font-weight:800}
+.who i{width:44px;height:44px;border-radius:50%;background:var(--lav);display:grid;place-items:center;color:#fff;font-style:normal;font-family:'Comfortaa',sans-serif}
+.rev:nth-child(2) .who i{background:var(--pink)}.rev:nth-child(3) .who i{background:#7FD3B3}
+.who small{display:block;font-weight:600;color:var(--ink-soft)}
+
+/* contact */
+.box{background:linear-gradient(135deg,var(--lav) 0%,#D4A6F0 50%,var(--pink) 100%);border-radius:clamp(32px,6vw,72px);padding:clamp(34px,6vw,84px);color:#fff;display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(30px,5vw,70px);position:relative;overflow:hidden}
+.box::before,.box::after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.16)}
+.box::before{width:340px;height:340px;right:-90px;top:-120px}.box::after{width:200px;height:200px;left:38%;bottom:-110px}
+.box>*{position:relative;z-index:1}
+.box p{opacity:.92;margin-top:16px;max-width:42ch}
+.info{list-style:none;display:grid;gap:14px;margin-top:30px;font-weight:700}
+.info li{display:flex;gap:12px;align-items:flex-start}
+.info li b{background:rgba(255,255,255,.25);border-radius:12px;padding:2px 10px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;flex:none;margin-top:2px}
+form{background:#fff;color:var(--ink);border-radius:var(--r-lg);padding:clamp(22px,3vw,34px);display:grid;gap:14px;box-shadow:0 30px 60px -30px rgba(60,20,90,.6)}
+form h3{font-size:22px;margin-bottom:4px}
+label{font-weight:800;font-size:13px;display:grid;gap:6px;color:var(--ink-soft)}
+input,select{font:inherit;font-weight:700;color:var(--ink);padding:14px 16px;border-radius:var(--r-sm);border:2px solid #EFE6F4;background:var(--cream);width:100%;min-height:52px;transition:border-color .25s,background .25s}
+input:focus,select:focus{outline:0;border-color:var(--lav-deep);background:#fff}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+form .btn{width:100%;margin-top:6px}
+.note{font-size:13px;color:var(--ink-soft);text-align:center}
+
+footer{padding:50px 0 40px;text-align:center;color:var(--ink-soft);font-size:14px}
+footer .logo{justify-content:center;color:var(--ink);margin-bottom:14px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translate(-50%,calc(100% + 40px));background:var(--ink);color:#fff;padding:14px 24px;border-radius:99px;font-weight:800;z-index:99;transition:transform .5s var(--bounce);max-width:calc(100% - 32px);text-align:center}
+.toast.on{transform:translate(-50%,0)}
+
+.rv{opacity:0;transform:translateY(34px) scale(.98);transition:opacity .8s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--d,0)*90ms)}
+.rv.in{opacity:1;transform:none}
+.card.rv.in{transform:rotateX(var(--rx)) rotateY(var(--ry))}
+.rev.rv.in:nth-child(odd){transform:rotate(-1.2deg)}.rev.rv.in:nth-child(even){transform:rotate(1.2deg)}
+.rev.rv.in:hover{transform:translateY(-8px)}
+
+@media (max-width:1100px){.cards{grid-template-columns:1fr 1fr}}
+@media (max-width:960px){
+  .links,.nav .btn{display:none}
+  .burger{display:block}
+  .nav-in{flex-wrap:wrap;border-radius:30px}
+  .open .links{display:grid;width:100%;order:3;padding:8px 0 6px}
+  .open .links a{display:block;padding:14px 16px;font-size:17px}
+  .hero-grid,.about-grid,.box{grid-template-columns:1fr}
+  .hero{text-align:center}
+  .hero .lead{margin-inline:auto}
+  .cta,.perks{justify-content:center}
+  .stage{max-width:460px;order:-1}
+  .panel{grid-template-columns:1fr}
+  .gal{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(140px,38vw,260px)}
+  .gal a:nth-child(5),.gal a:nth-child(6){grid-column:span 1}
+  .collage{max-width:520px;margin-inline:auto;width:100%}
+}
+@media (max-width:560px){
+  .logo{font-size:18px}.logo svg{width:36px;height:36px}
+  .cta .btn{width:100%}
+  .cards{grid-template-columns:1fr}
+  .bubble{padding:9px 13px;font-size:12px}
+  .stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:span 2}
+  .two{grid-template-columns:1fr}
+  .tabs{display:flex;flex-wrap:nowrap;border-radius:26px}.tabs button{flex:1;padding:12px 6px;font-size:14px;white-space:nowrap}
+  .collage .round{width:104px;height:104px;font-size:11px}.collage .round b{font-size:28px}
+  .item .price{font-size:16px;padding:6px 12px}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ele" viewBox="0 0 64 64">
+    <circle cx="12" cy="26" r="12" fill="#9C7FE8"/><circle cx="52" cy="26" r="12" fill="#9C7FE8"/>
+    <circle cx="12" cy="26" r="6.5" fill="#FFB9D2"/><circle cx="52" cy="26" r="6.5" fill="#FFB9D2"/>
+    <circle cx="32" cy="30" r="19" fill="#B9A2F5"/>
+    <path d="M32 36V50Q32 58 41 57" fill="none" stroke="#9C7FE8" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="24" cy="28" r="2.4" fill="#3B2540"/><circle cx="40" cy="28" r="2.4" fill="#3B2540"/>
+    <circle cx="19" cy="35" r="3.2" fill="#FF9EC0" opacity=".7"/><circle cx="45" cy="35" r="3.2" fill="#FF9EC0" opacity=".7"/>
+  </symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a href="#top" class="logo" aria-label="slonik97 — на главную"><svg><use href="#ele"/></svg><span>slonik<b>97</b></span></a>
+    <ul class="links">
+      <li><a href="#hits">Любимчики</a></li>
+      <li><a href="#menu">Меню</a></li>
+      <li><a href="#about">О нас</a></li>
+      <li><a href="#gallery">Атмосфера</a></li>
+      <li><a href="#contact">Контакты</a></li>
+    </ul>
+    <a href="#contact" class="btn btn-main">Забронировать</a>
+    <button class="burger" aria-label="Открыть меню" aria-expanded="false"><span></span><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag rv"><i></i>Кофейня-кондитерская</span>
+      <h1 class="rv" style="--d:1">Сладкое место, где живёт <em>слоник<svg viewBox="0 0 300 20" preserveAspectRatio="none"><path d="M4 14 Q75 0 150 11 T296 8"/></svg></em></h1>
+      <p class="lead rv" style="--d:2">Печём десерты каждое утро, варим кофе с пенкой-облаком и всегда оставляем столик у окна. Заходите на&nbsp;чашечку счастья.</p>
+      <div class="cta rv" style="--d:3">
+        <a href="#menu" class="btn btn-main">Смотреть меню</a>
+        <a href="#contact" class="btn btn-soft">Забронировать столик</a>
+      </div>
+      <div class="perks rv" style="--d:4"><span>Своя пекарня</span><span>Зерно свежей обжарки</span><span>Можно с хвостиками</span></div>
+    </div>
+    <div class="stage rv" style="--d:2" id="stage">
+      <svg class="fallback"><use href="#ele"/></svg>
+      <div class="bubble b1">Привет! Я Слоник<small>покрути меня</small></div>
+      <div class="bubble b2">97 десертов<small>и все свежие</small></div>
+    </div>
+  </div>
+</section>
+
+<div class="marq" aria-hidden="true"><div>
+  <span>круассаны</span><span>капучино</span><span>чизкейк</span><span>панкейки</span><span>какао с маршмеллоу</span><span>пончики</span><span>матча латте</span><span>эклеры</span>
+  <span>круассаны</span><span>капучино</span><span>чизкейк</span><span>панкейки</span><span>какао с маршмеллоу</span><span>пончики</span><span>матча латте</span><span>эклеры</span>
+</div></div>
+
+<section id="hits">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="tag rv"><i></i>Любимчики гостей</span><h2 class="rv" style="--d:1">Их заказывают<br>чаще всего</h2></div>
+      <p class="lead rv" style="--d:2">Наведите на карточку — она оживёт. А лучше приходите и&nbsp;попробуйте вживую.</p>
+    </div>
+    <div class="cards">
+      <article class="card rv"><span class="sticker">хит</span><figure><img src="img/donuts.jpg" alt="Пончики с глазурью и посыпкой" loading="lazy"></figure><div class="body"><h3>Пончик «Радуга»</h3><p>Воздушное тесто, шоколадная глазурь и&nbsp;очень много посыпки.</p><div class="row"><span class="price">190 ₽</span><button class="plus" aria-label="Добавить пончик">+</button></div></div></article>
+      <article class="card rv" style="--d:1"><span class="sticker">новинка</span><figure><img src="img/cake.jpg" alt="Малиновый торт" loading="lazy"></figure><div class="body"><h3>Малиновое облако</h3><p>Нежный бисквит, сливочный крем и&nbsp;свежая малина.</p><div class="row"><span class="price">420 ₽</span><button class="plus" aria-label="Добавить торт">+</button></div></div></article>
+      <article class="card rv" style="--d:2"><span class="sticker">с утра</span><figure><img src="img/pancakes.jpg" alt="Стопка панкейков" loading="lazy"></figure><div class="body"><h3>Панкейки-башня</h3><p>Шесть пышных панкейков с&nbsp;кленовым сиропом и&nbsp;маслом.</p><div class="row"><span class="price">390 ₽</span><button class="plus" aria-label="Добавить панкейки">+</button></div></div></article>
+      <article class="card rv" style="--d:3"><span class="sticker">ваше</span><figure><img src="img/cupcakes.jpg" alt="Капкейки с мятным кремом" loading="lazy"></figure><div class="body"><h3>Ваш десерт</h3><p>Здесь могло быть ваше фирменное блюдо с&nbsp;аппетитным описанием.</p><div class="row"><span class="price">Ваша цена</span><button class="plus" aria-label="Добавить десерт">+</button></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="menu">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="tag rv" style="background:var(--cream)"><i></i>Меню</span><h2 class="rv" style="--d:1">Вкусненькое</h2></div>
+      <div class="tabs rv" style="--d:2" role="tablist">
+        <button role="tab" aria-selected="true" data-tab="coffee">Кофе и чай</button>
+        <button role="tab" aria-selected="false" data-tab="sweet">Десерты</button>
+        <button role="tab" aria-selected="false" data-tab="morning">Завтраки</button>
+      </div>
+    </div>
+    <div class="panel on" id="coffee" role="tabpanel">
+      <div class="item" style="--i:0"><h3>Капучино «Облако» <mark>хит</mark></h3><p>Двойной эспрессо, молочная пенка</p><span class="price">260 ₽</span></div>
+      <div class="item" style="--i:1"><h3>Раф лавандовый</h3><p>Сливки, лавандовый сироп, ваниль</p><span class="price">320 ₽</span></div>
+      <div class="item" style="--i:2"><h3>Флэт уайт</h3><p>Для тех, кто любит покрепче</p><span class="price">270 ₽</span></div>
+      <div class="item" style="--i:3"><h3>Матча латте</h3><p>Японская матча, овсяное молоко</p><span class="price">340 ₽</span></div>
+      <div class="item" style="--i:4"><h3>Айс-латте карамель</h3><p>Холодный, сладкий, с&nbsp;кубиками льда</p><span class="price">310 ₽</span></div>
+      <div class="item" style="--i:5"><h3>Какао «Слоник»</h3><p>Бельгийский шоколад, гора маршмеллоу</p><span class="price">290 ₽</span></div>
+      <div class="item" style="--i:6"><h3>Чай облепиховый</h3><p>Облепиха, апельсин, мёд, розмарин</p><span class="price">350 ₽</span></div>
+      <div class="item yours" style="--i:7"><h3>Ваш напиток</h3><p>Тут могло быть ваше название</p><span class="price">Ваша цена</span></div>
+    </div>
+    <div class="panel" id="sweet" role="tabpanel">
+      <div class="item" style="--i:0"><h3>Круассан сливочный</h3><p>81 слой хрустящего теста</p><span class="price">180 ₽</span></div>
+      <div class="item" style="--i:1"><h3>Пончик «Радуга» <mark>хит</mark></h3><p>Шоколадная глазурь и&nbsp;посыпка</p><span class="price">190 ₽</span></div>
+      <div class="item" style="--i:2"><h3>Малиновое облако</h3><p>Бисквит, крем, свежая малина</p><span class="price">420 ₽</span></div>
+      <div class="item" style="--i:3"><h3>Капкейк мятный</h3><p>Ванильный кекс, мятный крем</p><span class="price">230 ₽</span></div>
+      <div class="item" style="--i:4"><h3>Панна-котта с&nbsp;клубникой</h3><p>Сливочная, в&nbsp;баночке</p><span class="price">310 ₽</span></div>
+      <div class="item" style="--i:5"><h3>Печенье с&nbsp;шоколадом</h3><p>Мягкое внутри, хрустящее по&nbsp;краям</p><span class="price">150 ₽</span></div>
+      <div class="item" style="--i:6"><h3>Шоколадный торт</h3><p>Три коржа и&nbsp;ганаш из&nbsp;тёмного шоколада</p><span class="price">450 ₽</span></div>
+      <div class="item yours" style="--i:7"><h3>Ваш десерт</h3><p>Тут могло быть ваше название</p><span class="price">Ваша цена</span></div>
+    </div>
+    <div class="panel" id="morning" role="tabpanel">
+      <div class="item" style="--i:0"><h3>Панкейки-башня <mark>хит</mark></h3><p>Кленовый сироп, сливочное масло</p><span class="price">390 ₽</span></div>
+      <div class="item" style="--i:1"><h3>Французские тосты</h3><p>Бриошь, банан, голубика, мёд</p><span class="price">430 ₽</span></div>
+      <div class="item" style="--i:2"><h3>Сырники со&nbsp;сметаной</h3><p>Фермерский творог, ягодный соус</p><span class="price">410 ₽</span></div>
+      <div class="item" style="--i:3"><h3>Каша овсяная с&nbsp;ягодами</h3><p>На&nbsp;молоке или кокосовом</p><span class="price">290 ₽</span></div>
+      <div class="item" style="--i:4"><h3>Круассан с&nbsp;лососем</h3><p>Крем-чиз, авокадо, яйцо пашот</p><span class="price">520 ₽</span></div>
+      <div class="item" style="--i:5"><h3>Гранола с&nbsp;йогуртом</h3><p>Домашняя гранола, сезонные фрукты</p><span class="price">340 ₽</span></div>
+      <div class="item yours" style="--i:6"><h3>Ваш завтрак</h3><p>Тут могло быть ваше название</p><span class="price">Ваша цена</span></div>
+      <div class="item yours" style="--i:7"><h3>Ваше сезонное предложение</h3><p>И&nbsp;его короткое описание</p><span class="price">Ваша цена</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="collage rv">
+      <img src="img/latte.jpg" alt="Два капучино с латте-артом" loading="lazy">
+      <img src="img/croissant.jpg" alt="Свежие круассаны" loading="lazy">
+      <div class="round"><span><b>97</b>с любовью</span></div>
+    </div>
+    <div>
+      <span class="tag rv"><i></i>О нас</span>
+      <h2 class="rv" style="--d:1">Маленькая кофейня с&nbsp;большим сердцем</h2>
+      <p class="lead rv" style="--d:2;margin-top:20px">Мы открылись, чтобы у&nbsp;каждого было место, где пахнет выпечкой, бариста помнит ваш заказ, а&nbsp;плюшевый слоник на&nbsp;подоконнике охраняет хорошее настроение.</p>
+      <div class="stats">
+        <div class="stat rv" style="--d:1"><b data-count="97">0</b><span>видов десертов</span></div>
+        <div class="stat rv" style="--d:2"><b data-count="6">0</b><span>утра — уже печём</span></div>
+        <div class="stat rv" style="--d:3"><b data-count="1200">0</b><span>чашек кофе в&nbsp;неделю</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery" style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div><span class="tag rv"><i></i>Атмосфера</span><h2 class="rv" style="--d:1">Загляните к&nbsp;нам</h2></div></div>
+    <div class="gal">
+      <a class="rv"><img src="img/iced.jpg" alt="Айс-латте" loading="lazy"></a>
+      <a class="rv" style="--d:1"><img src="img/cookies.jpg" alt="Печенье с шоколадом" loading="lazy"></a>
+      <a class="rv" style="--d:2"><img src="img/panna.jpg" alt="Панна-котта с клубникой" loading="lazy"></a>
+      <a class="rv" style="--d:1"><img src="img/capp.jpg" alt="Капучино на столике" loading="lazy"></a>
+      <a class="rv" style="--d:2"><img src="img/toast.jpg" alt="Французские тосты с ягодами" loading="lazy"></a>
+      <a class="rv" style="--d:3"><img src="img/latteart.jpg" alt="Бариста рисует латте-арт" loading="lazy"></a>
+      <a class="rv" style="--d:4"><img src="img/choco.jpg" alt="Шоколадный торт" loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="head"><div><span class="tag rv"><i></i>Отзывы</span><h2 class="rv" style="--d:1">Гости говорят</h2></div></div>
+    <div class="revs">
+      <div class="rev rv"><div class="stars">★★★★★</div><p>Лучшие панкейки в&nbsp;городе! Дочка теперь просит «к&nbsp;слонику» каждые выходные.</p><div class="who"><i>А</i><span>Анна<small>постоянный гость</small></span></div></div>
+      <div class="rev rv" style="--d:1"><div class="stars">★★★★★</div><p>Уютно так, что не&nbsp;хочется уходить. Раф лавандовый — отдельная любовь.</p><div class="who"><i>М</i><span>Максим<small>работает тут с&nbsp;ноутбуком</small></span></div></div>
+      <div class="rev rv" style="--d:2"><div class="stars">★★★★★</div><p>Здесь мог быть отзыв вашего гостя — тёплый, честный и&nbsp;очень убедительный.</p><div class="who"><i>В</i><span>Ваш гость<small>ваш город</small></span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="box rv">
+      <div>
+        <h2>Ждём вас в&nbsp;гости!</h2>
+        <p>Оставьте заявку — придержим любимый столик и&nbsp;испечём что-нибудь особенное.</p>
+        <ul class="info">
+          <li><b>Адрес</b><span>Ваш город, ул. Ваша улица, 97</span></li>
+          <li><b>Часы</b><span>Каждый день с&nbsp;8:00 до&nbsp;22:00</span></li>
+          <li><b>Телефон</b><a href="tel:+70000000097">+7 (000) 000-00-97</a></li>
+        </ul>
+      </div>
+      <form id="form">
+        <h3>Бронь столика</h3>
+        <label>Ваше имя<input name="name" required placeholder="Как к вам обращаться?" autocomplete="name"></label>
+        <label>Телефон<input name="tel" type="tel" required placeholder="+7 (___) ___-__-__" autocomplete="tel"></label>
+        <div class="two">
+          <label>Дата<input name="date" type="date" required></label>
+          <label>Гостей<select name="guests"><option>2 гостя</option><option>3–4 гостя</option><option>5–6 гостей</option><option>Больше</option></select></label>
+        </div>
+        <button class="btn btn-main" type="submit">Забронировать</button>
+        <p class="note">Демо-форма: данные никуда не&nbsp;отправляются</p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="#top" class="logo"><svg><use href="#ele"/></svg><span>slonik<b>97</b></span></a>
+    <p>© 2026 slonik97 · Демонстрационный сайт · Фото: Unsplash</p>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+
+  // nav
+  const nav=$('#nav'), burger=$('.burger'); let last=0;
+  burger.onclick=()=>{const o=nav.classList.toggle('open');burger.setAttribute('aria-expanded',o)};
+  $$('.links a').forEach(a=>a.onclick=()=>nav.classList.remove('open'));
+  addEventListener('scroll',()=>{const y=scrollY;nav.classList.toggle('hide',y>last&&y>500&&!nav.classList.contains('open'));last=y},{passive:true});
+
+  // reveal
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);
+    const c=e.target.querySelector('[data-count]'); if(c) count(c)}}),{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+  $$('.rv').forEach(el=>io.observe(el));
+  function count(el){const to=+el.dataset.count,t0=performance.now(),d=1400;
+    (function f(t){const p=Math.min(1,(t-t0)/d),e=1-Math.pow(1-p,4);el.textContent=Math.round(to*e).toLocaleString('ru-RU');if(p<1)requestAnimationFrame(f)})(t0)}
+
+  // tilt cards
+  if(matchMedia('(hover:hover)').matches) $$('.card').forEach(c=>{
+    c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      c.classList.add('live');c.style.setProperty('--ry',x*16+'deg');c.style.setProperty('--rx',-y*14+'deg')});
+    c.addEventListener('pointerleave',()=>{c.classList.remove('live');c.style.setProperty('--ry','0deg');c.style.setProperty('--rx','0deg')});
+  });
+
+  // toast, cart buttons, form
+  const toast=$('#toast');let tt;
+  function say(m){toast.textContent=m;toast.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>toast.classList.remove('on'),2600)}
+  $$('.plus').forEach(b=>b.onclick=()=>{b.classList.add('ok');b.textContent='✓';say('Добавили в заказ — слоник доволен!');setTimeout(()=>{b.classList.remove('ok');b.textContent='+'},1600)});
+  $('#form').addEventListener('submit',e=>{e.preventDefault();e.target.reset();say('Спасибо! Это демо — но столик мы бы уже держали')});
+
+  // tabs
+  $$('.tabs button').forEach(b=>b.onclick=()=>{
+    $$('.tabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+    $$('.panel').forEach(p=>p.classList.toggle('on',p.id===b.dataset.tab));
+  });
+
+  // 3D elephant
+  const stage=$('#stage');
+  if(!window.THREE){stage.classList.add('no3d');return}
+  try{
+  const T=THREE, scene=new T.Scene(), cam=new T.PerspectiveCamera(32,1,.1,100); cam.position.set(0,.2,13);
+  const ren=new T.WebGLRenderer({antialias:true,alpha:true}); ren.setPixelRatio(Math.min(devicePixelRatio,2));
+  ren.outputEncoding=T.sRGBEncoding; stage.prepend(ren.domElement);
+  scene.add(new T.HemisphereLight(0xffffff,0xffc9de,.95));
+  const sun=new T.DirectionalLight(0xffffff,.75); sun.position.set(4,6,6); scene.add(sun);
+  const rim=new T.DirectionalLight(0xffb3d1,.5); rim.position.set(-5,2,-4); scene.add(rim);
+  const M=(c,r=.55)=>new T.MeshStandardMaterial({color:c,roughness:r});
+  const lav=M(0xB9A2F5), deep=M(0x9C7FE8), pink=M(0xFFA6C6), dark=M(0x3B2540,.2), white=M(0xffffff,.3);
+  const sph=(r,m)=>new T.Mesh(new T.SphereGeometry(r,40,32),m);
+  const add=(p,m,x,y,z,sx=1,sy=1,sz=1)=>{m.position.set(x,y,z);m.scale.set(sx,sy,sz);p.add(m);return m};
+
+  const ele=new T.Group(); scene.add(ele);
+  add(ele,sph(1.25,lav),0,-1,0,1,.94,1.05);                       // body
+  add(ele,sph(.62,M(0xD9CBFB)),0,-1.08,.82,1,1,.5);               // tummy
+  [[-.62,.5],[.62,.5],[-.62,-.45],[.62,-.45]].forEach(([x,z])=>{
+    const l=new T.Mesh(new T.CylinderGeometry(.34,.4,.75,24),deep); add(ele,l,x,-2.02,z);
+    add(ele,sph(.34,deep),x,-1.66,z);
+  });
+  add(ele,sph(.14,deep),0,-.8,-1.3);                               // tail
+  const head=new T.Group(); head.position.set(0,.55,.35); ele.add(head);
+  add(head,sph(1.1,lav),0,0,0);
+  const ears=[-1,1].map(s=>{const g=new T.Group(); g.position.set(s*.92,.25,-.1); head.add(g);
+    add(g,sph(.82,deep),s*.5,.05,0,1,1.08,.2); add(g,sph(.56,pink),s*.52,.05,.1,1,1.08,.16); return g});
+  [-1,1].forEach(s=>{add(head,sph(.115,dark),s*.42,.25,.985); add(head,sph(.04,white),s*.42+.035,.3,1.08);
+    add(head,sph(.17,pink),s*.7,-.08,.84,1,.6,.35)});
+  const trunk=new T.Group(); trunk.position.set(0,-.2,.95); head.add(trunk);
+  const curve=new T.CatmullRomCurve3([new T.Vector3(0,0,0),new T.Vector3(0,-.4,.45),new T.Vector3(0,-.85,.65),new T.Vector3(0,-1.02,1.0),new T.Vector3(0,-.75,1.25)]);
+  trunk.add(new T.Mesh(new T.TubeGeometry(curve,40,.25,18),lav));
+  add(trunk,sph(.25,lav),0,-.75,1.25); add(trunk,sph(.3,lav),0,0,0);
+  // tiny party hat
+  const hat=new T.Mesh(new T.ConeGeometry(.3,.62,24),M(0xFFD98A)); add(head,hat,.28,1.25,0); hat.rotation.z=-.25;
+  add(head,sph(.1,pink),.36,1.56,0);
+
+  // floating sweets
+  const sweets=[], cols=[0xFF9EC0,0xB8EBD6,0xFFD98A,0xffffff,0xC9B6FA];
+  function donut(c){const g=new T.Group();
+    g.add(new T.Mesh(new T.TorusGeometry(.42,.2,18,40),M(0xF0BE85,.7)));
+    const ic=new T.Mesh(new T.TorusGeometry(.42,.175,18,40),M(c,.35)); ic.position.z=.075; g.add(ic);
+    for(let i=0;i<10;i++){const a=i/10*Math.PI*2+Math.random(),s=new T.Mesh(new T.CylinderGeometry(.022,.022,.11,6),M(cols[(i+1)%5],.4));
+      s.position.set(Math.cos(a)*.42,Math.sin(a)*.42,.25);s.rotation.set(Math.random()*3,Math.random()*3,Math.PI/2);g.add(s)}
+    return g}
+  function macaron(c){const g=new T.Group();add(g,sph(.34,M(c,.6)),0,.11,0,1,.42,1);add(g,sph(.34,M(c,.6)),0,-.11,0,1,.42,1);add(g,sph(.3,white),0,0,0,1,.3,1);return g}
+  for(let i=0;i<7;i++){const o=i%2?macaron(cols[i%5]):donut(cols[i%3]);
+    o.userData={a:i/7*Math.PI*2,r:2.5+(i%3)*.22,y:(i%4-1.5)*.95,s:.5+Math.random()*.6};scene.add(o);sweets.push(o)}
+
+  let tx=0,ty=0,spin=0,vel=0,drag=false,px=0,on=true;
+  const el=ren.domElement;
+  addEventListener('pointermove',e=>{tx=(e.clientX/innerWidth-.5);ty=(e.clientY/innerHeight-.5);
+    if(drag){vel=(e.clientX-px)*.012;px=e.clientX}});
+  el.addEventListener('pointerdown',e=>{drag=true;px=e.clientX;el.style.cursor='grabbing'});
+  addEventListener('pointerup',()=>{drag=false;el.style.cursor='grab'});
+  function size(){const w=stage.clientWidth,h=stage.clientHeight;ren.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+  new ResizeObserver(size).observe(stage); size();
+  new IntersectionObserver(e=>{on=e[0].isIntersecting}).observe(stage);
+  const clock=new T.Clock();
+  (function loop(){requestAnimationFrame(loop); if(!on) return; const t=clock.getElapsedTime();
+    spin+=vel; vel*=.94; spin*=drag?1:.985;
+    ele.rotation.y+=((tx*.9+spin)-ele.rotation.y)*.07;
+    head.rotation.x+=((ty*.45)-head.rotation.x)*.07;
+    head.rotation.z=Math.sin(t*1.1)*.05;
+    ele.position.y=.55+Math.sin(t*1.4)*.14;
+    ears[0].rotation.y=Math.sin(t*3)*.28+.15; ears[1].rotation.y=-Math.sin(t*3)*.28-.15;
+    trunk.rotation.x=Math.sin(t*1.8)*.12; trunk.rotation.z=Math.sin(t*1.2)*.1;
+    sweets.forEach(o=>{const u=o.userData,a=u.a+t*.22;o.position.set(Math.cos(a)*u.r,u.y+Math.sin(t*u.s+u.a)*.3,Math.sin(a)*u.r*.7);
+      o.rotation.x=t*u.s*.7+u.a;o.rotation.y=t*u.s*.5});
+    ren.render(scene,cam);
+  })();
+  }catch(err){stage.classList.add('no3d')}
+})();
+</script>
+</body>
+</html>
