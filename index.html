@@ -53,6 +53,7 @@ section{padding-block:var(--sec);position:relative}
 @keyframes floaty{50%{transform:translateY(-16px) rotate(10deg)}}
 .rv{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .9s var(--ease);transition-delay:calc(var(--d,0)*90ms)}
 .rv.in{opacity:1;transform:none}
+.card.rv.in{transform:rotateX(var(--rx)) rotateY(var(--ry))}
 
 /* nav */
 .nav{position:fixed;top:14px;left:0;right:0;z-index:50;padding-inline:var(--pad);pointer-events:none}
@@ -72,10 +73,10 @@ section{padding-block:var(--sec);position:relative}
 .open .burger span:last-child{top:22px;transform:rotate(-45deg)}
 
 /* hero */
-.hero{padding-top:clamp(112px,12vw,150px);padding-bottom:0;overflow:hidden;background:
+.hero{padding-top:clamp(112px,12vw,150px);padding-bottom:clamp(36px,4vw,64px);overflow:hidden;background:
   radial-gradient(60% 50% at 82% 34%,rgba(185,162,245,.38),transparent 70%),
   radial-gradient(40% 40% at 8% 12%,rgba(255,158,192,.28),transparent 70%),
-  radial-gradient(36% 36% at 30% 96%,rgba(184,235,214,.5),transparent 70%)}
+  radial-gradient(30% 26% at 30% 74%,rgba(184,235,214,.5),transparent 70%)}
 .hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(156,127,232,.22) 1.5px,transparent 1.5px);background-size:26px 26px;-webkit-mask-image:linear-gradient(180deg,#000,transparent 70%);mask-image:linear-gradient(180deg,#000,transparent 70%)}
 .hero-grid{display:grid;grid-template-columns:1.02fr 1fr;align-items:center;gap:clamp(10px,2vw,36px);position:relative}
 .hero h1{font-size:clamp(38px,5.9vw,82px)}
@@ -112,7 +113,7 @@ section{padding-block:var(--sec);position:relative}
 .fact .ic svg{width:26px;height:26px}
 .fact b{display:block;font-family:'Comfortaa',sans-serif;font-size:17px;line-height:1.25}
 .fact span{font-size:14px;color:var(--soft)}
-.live{display:inline-block;width:9px;height:9px;border-radius:50%;background:#3CC48E;margin-right:6px;box-shadow:0 0 0 0 rgba(60,196,142,.6);animation:pulse 2s infinite}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#3CC48E;margin-right:6px;box-shadow:0 0 0 0 rgba(60,196,142,.6);animation:pulse 2s infinite}
 @keyframes pulse{to{box-shadow:0 0 0 10px rgba(60,196,142,0)}}
 
 /* marquee */
@@ -387,7 +388,7 @@ footer{background:var(--paper);padding:clamp(36px,5vw,64px) 0 26px}
       </div>
     </div>
     <div class="strip">
-      <div class="fact rv"><span class="ic"><svg><use href="#i-clock"/></svg></span><div><b><i class="live"></i>Открыто до 22:00</b><span>каждый день с&nbsp;8 утра</span></div></div>
+      <div class="fact rv"><span class="ic"><svg><use href="#i-clock"/></svg></span><div><b><i class="dot"></i>Открыто до 22:00</b><span>каждый день с&nbsp;8 утра</span></div></div>
       <div class="fact rv" style="--d:1"><span class="ic"><svg><use href="#i-leaf"/></svg></span><div><b>Печём с&nbsp;6 утра</b><span>без заморозки и&nbsp;смесей</span></div></div>
       <div class="fact rv" style="--d:2"><span class="ic"><svg><use href="#i-paw"/></svg></span><div><b>Можно с&nbsp;хвостиками</b><span>миска воды и&nbsp;вкусняшка</span></div></div>
     </div>
@@ -398,7 +399,7 @@ footer{background:var(--paper);padding:clamp(36px,5vw,64px) 0 26px}
   </div></div>
 </section>
 
-<section id="hits">
+<section id="hits" style="padding-top:clamp(40px,5vw,72px)">
   <svg class="dd" style="right:5%;top:12%;width:30px;color:var(--mint)"><use href="#spark"/></svg>
   <div class="wrap">
     <div class="head">
@@ -635,7 +636,7 @@ footer{background:var(--paper);padding:clamp(36px,5vw,64px) 0 26px}
   const T=THREE, scene=new T.Scene(), cam=new T.PerspectiveCamera(30,1,.1,100);
   cam.position.set(0,1.3,14.5); cam.lookAt(0,-.35,0);
   const ren=new T.WebGLRenderer({antialias:true,alpha:true});
-  ren.setPixelRatio(Math.min(devicePixelRatio,2)); ren.outputEncoding=T.sRGBEncoding;
+  ren.setPixelRatio(Math.min(devicePixelRatio,1.75)); ren.outputEncoding=T.sRGBEncoding;
   ren.shadowMap.enabled=true; ren.shadowMap.type=T.PCFSoftShadowMap;
   stage.prepend(ren.domElement);
 
@@ -648,7 +649,7 @@ footer{background:var(--paper);padding:clamp(36px,5vw,64px) 0 26px}
 
   const M=(c,r=.5)=>new T.MeshStandardMaterial({color:new T.Color(c).convertSRGBToLinear(),roughness:r});
   const lav=M(0xB9A2F5), deep=M(0x9C7FE8), light=M(0xDCD0FC), pink=M(0xFFA6C6), dark=M(0x2E1C33,.15), white=M(0xffffff,.3), cream=M(0xFFF6EC,.6);
-  const sph=(r,m)=>new T.Mesh(new T.SphereGeometry(r,48,36),m);
+  const sph=(r,m)=>new T.Mesh(new T.SphereGeometry(r,32,24),m);
   const add=(p,m,x,y,z,sx=1,sy=1,sz=1)=>{m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=true;p.add(m);return m};
 
   // cake pedestal
@@ -658,7 +659,7 @@ footer{background:var(--paper);padding:clamp(36px,5vw,64px) 0 26px}
   const drip=new T.Mesh(new T.TorusGeometry(2.48,.13,14,72),cream); drip.rotation.x=Math.PI/2; drip.position.y=-.02; cake.add(drip);
   const plate=new T.Mesh(new T.CylinderGeometry(3,2.8,.1,72),white); plate.position.y=-.69; cake.add(plate);
   const dots=[0xFF9EC0,0xB8EBD6,0xFFD98A,0xB9A2F5];
-  for(let i=0;i<14;i++){const a=i/14*Math.PI*2,d=sph(.13,M(dots[i%4],.35));d.position.set(Math.cos(a)*2.2,.14,Math.sin(a)*2.2);d.castShadow=true;cake.add(d)}
+  for(let i=0;i<14;i++){const a=i/14*Math.PI*2,d=sph(.13,M(dots[i%4],.35));d.position.set(Math.cos(a)*2.2,.14,Math.sin(a)*2.2);cake.add(d)}
   for(let i=0;i<18;i++){const a=i/18*Math.PI*2,d=sph(.11,cream);d.scale.y=1.7;d.position.set(Math.cos(a)*2.52,-.2-(i%3)*.07,Math.sin(a)*2.52);cake.add(d)}
 
   // elephant
@@ -683,7 +684,7 @@ footer{background:var(--paper);padding:clamp(36px,5vw,64px) 0 26px}
   [-1,1].forEach(s=>add(head,sph(.2,pink),s*.78,-.14,.84,1,.62,.4));
   // tapered trunk made of a chain of spheres, re-posed every frame
   const curve=new T.CatmullRomCurve3([new T.Vector3(0,-.12,.98),new T.Vector3(0,-.55,1.36),new T.Vector3(0,-1.0,1.5),new T.Vector3(0,-1.28,1.84),new T.Vector3(0,-1.08,2.16),new T.Vector3(0,-.78,2.14)]);
-  const N=26, seg=[]; for(let i=0;i<N;i++){const t=i/(N-1),m=sph(.31-.14*t,lav);m.userData={t,p:curve.getPoint(t)};m.castShadow=true;head.add(m);seg.push(m)}
+  const N=20, seg=[]; for(let i=0;i<N;i++){const t=i/(N-1),m=sph(.31-.14*t,lav);m.userData={t,p:curve.getPoint(t)};m.castShadow=true;head.add(m);seg.push(m)}
   // donut held by the trunk
   function donut(c){const g=new T.Group();
     const d=new T.Mesh(new T.TorusGeometry(.4,.19,18,44),M(0xF0BE85,.7)); d.castShadow=true; g.add(d);
@@ -704,32 +705,35 @@ footer{background:var(--paper);padding:clamp(36px,5vw,64px) 0 26px}
   function macaron(c){const g=new T.Group();add(g,sph(.32,M(c,.6)),0,.1,0,1,.42,1);add(g,sph(.32,M(c,.6)),0,-.1,0,1,.42,1);add(g,sph(.285,white),0,0,0,1,.3,1);return g}
   const hs=new T.Shape(); hs.moveTo(0,-.34); hs.bezierCurveTo(-.62,.06,-.36,.52,0,.2); hs.bezierCurveTo(.36,.52,.62,.06,0,-.34);
   const hg=new T.ExtrudeGeometry(hs,{depth:.12,bevelEnabled:true,bevelThickness:.07,bevelSize:.07,bevelSegments:5,curveSegments:18}); hg.center();
-  const heart=c=>{const m=new T.Mesh(hg,M(c,.3)); m.castShadow=true; m.scale.setScalar(.62); return m};
+  const heart=c=>{const m=new T.Mesh(hg,M(c,.3)); m.scale.setScalar(.62); return m};
   const star=c=>{const m=new T.Mesh(new T.OctahedronGeometry(.2,0),M(c,.2)); m.scale.set(.7,1.3,.7); return m};
   const make=[()=>donut(0xB8EBD6),()=>heart(0xFF8FB8),()=>macaron(0xFFD98A),()=>star(0xffffff),()=>donut(0xC9B6FA),()=>macaron(0xFFA6C6),()=>heart(0xB9A2F5),()=>star(0xFFD98A),()=>macaron(0xB8EBD6)];
   make.forEach((f,i)=>{const o=f(); o.userData={a:i/make.length*Math.PI*2,r:2.75+(i%3)*.14,y:-.9+(i*.37%1)*3.3,s:.5+(i%4)*.18}; scene.add(o); sweets.push(o)});
 
   // interaction
-  let tx=0,ty=0,spin=0,vel=0,drag=false,moved=0,px=0,on=true,jy=0,jv=0,blink=0,next=2.5,wave=0;
+  let tx=0,ty=0,rot=0,vel=0,drag=false,moved=0,px=0,on=true,jy=0,jv=0,blink=0,next=2.5,wave=0;
   const el=ren.domElement;
   addEventListener('pointermove',e=>{tx=e.clientX/innerWidth-.5;ty=e.clientY/innerHeight-.5;
-    if(drag){const d=e.clientX-px;vel=d*.012;moved+=Math.abs(d);px=e.clientX}});
-  el.addEventListener('pointerdown',e=>{drag=true;moved=0;px=e.clientX;el.style.cursor='grabbing'});
-  addEventListener('pointerup',()=>{if(drag&&moved<6&&jy===0){jv=.17;wave=1}drag=false;el.style.cursor='grab'});
+    if(drag){const d=(e.clientX-px)*.011;rot+=d;vel=d;moved+=Math.abs(e.clientX-px);px=e.clientX}});
+  el.addEventListener('pointerdown',e=>{drag=true;moved=0;vel=0;px=e.clientX;el.style.cursor='grabbing'});
+  addEventListener('pointerup',()=>{if(!drag)return;drag=false;el.style.cursor='grab';
+    if(moved<6&&jy===0){jv=10;wave=1}
+    rot=Math.atan2(Math.sin(rot),Math.cos(rot))});          // come back the short way round
   function size(){const w=stage.clientWidth,h=stage.clientHeight;ren.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
   new ResizeObserver(size).observe(stage); size();
   new IntersectionObserver(e=>{on=e[0].isIntersecting}).observe(stage);
 
-  const clock=new T.Clock(); let last=0;
-  (function loop(){requestAnimationFrame(loop); if(!on) return;
-    const t=clock.getElapsedTime(), dt=Math.min(.05,t-last); last=t;
-    spin+=vel; vel*=.94; if(!drag) spin*=.985;
-    ele.rotation.y+=((tx*.8+spin)-ele.rotation.y)*.08;
+  const clock=new T.Clock(), k=(dt,r)=>1-Math.exp(-dt*r);   // frame-rate independent easing
+  (function loop(){requestAnimationFrame(loop); const dt=Math.min(.05,clock.getDelta()); if(!on) return;
+    const t=clock.elapsedTime;
+    if(drag){ele.rotation.y=tx*.8+rot}
+    else{rot+=vel*dt*60; vel*=Math.pow(.9,dt*60); if(Math.abs(vel)<.002) rot+=(0-rot)*k(dt,2.2);
+      ele.rotation.y+=((tx*.8+rot)-ele.rotation.y)*k(dt,14)}
     cake.rotation.y=ele.rotation.y*.5+t*.08;
-    head.rotation.x+=((ty*.4)-head.rotation.x)*.08;
+    head.rotation.x+=((ty*.4)-head.rotation.x)*k(dt,10);
     head.rotation.z=Math.sin(t*1.1)*.045;
     // jump with squash
-    if(jv||jy){jy+=jv;jv-=.012;if(jy<=0){jy=0;jv=0}}
+    if(jv||jy){jy+=jv*dt;jv-=42*dt;if(jy<=0){jy=0;jv=0}}
     const breathe=Math.sin(t*1.6)*.012, sq=jy>0?1+Math.min(.08,jy*.06):1;
     ele.position.y=jy+Math.sin(t*1.6)*.03; ele.scale.set(1/Math.sqrt(sq)+breathe,sq-breathe,1/Math.sqrt(sq)+breathe);
     // ears, arms
@@ -739,7 +743,7 @@ footer{background:var(--paper);padding:clamp(36px,5vw,64px) 0 26px}
     arms[1].rotation.z=.45+wave*(1.5+Math.sin(t*14)*.35); arms[0].rotation.z=-.45-Math.sin(t*1.6)*.05;
     // blink
     next-=dt; if(next<0){blink=.16;next=2+Math.random()*3}
-    blink=Math.max(0,blink-dt); const ey=blink>0?.12:1; eyes.forEach(e=>e.scale.y+=(ey-e.scale.y)*.5);
+    blink=Math.max(0,blink-dt); const ey=blink>0?.12:1; eyes.forEach(e=>e.scale.y+=(ey-e.scale.y)*k(dt,40));
     // trunk sway
     seg.forEach(m=>{const u=m.userData;m.position.set(u.p.x+Math.sin(t*1.5+u.t*2.6)*.16*u.t,u.p.y+Math.sin(t*1.9+u.t*2)*.06*u.t,u.p.z)});
     const tip=seg[N-1].position; held.position.set(tip.x,tip.y+.2,tip.z+.05); held.rotation.set(-1.25,Math.sin(t*1.5)*.2,Math.sin(t*1.2)*.15);
